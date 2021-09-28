@@ -13,20 +13,6 @@ import javax.persistence.Query;
 public class CityRepositoryImpl extends GenericRepositoryImpl<Long, City> implements CityRepository {
 
     @Override
-    public City findCityByNameIgnoreCaseContaining(String name) {
-        String stringQuery = "SELECT c FROM City as c WHERE lower(c.cityName)=:cityName";
-        Query query = entityManager.createQuery(stringQuery);
-        query.setParameter("cityName", name.toLowerCase());
-        try {
-            query.getSingleResult();
-        } catch (NoResultException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
-        return (City) query.getSingleResult();
-    }
-
-    @Override
     public City findCityByName(String name) {
         String stringQuery = "SELECT c FROM City as c WHERE c.cityName=:cityName";
         Query query = entityManager.createQuery(stringQuery);

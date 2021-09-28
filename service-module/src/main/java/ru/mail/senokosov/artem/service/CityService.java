@@ -16,6 +16,4 @@ public interface CityService {
     boolean deleteCityById(Long id);
 
     CityDTO updateCity(Long id, CityDTO cityDTO) throws ServiceException;
-
-    CityDTO getCitiesByNameContaining(String partName) throws ServiceException;
 }

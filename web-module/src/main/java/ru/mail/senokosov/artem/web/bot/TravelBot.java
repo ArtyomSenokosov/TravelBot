@@ -14,12 +14,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.mail.senokosov.artem.service.CityInfoService;
 import ru.mail.senokosov.artem.service.CityService;
-import ru.mail.senokosov.artem.service.model.CityDTO;
+import ru.mail.senokosov.artem.service.exception.ServiceException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -61,7 +59,7 @@ public class TravelBot extends TelegramLongPollingBot {
     }
 
     @SneakyThrows
-    private void sendMsg(Long chatId, String message, Integer messageId){
+    private void sendMsg(Long chatId, String message, Integer messageId) throws ServiceException {
 
         SendMessage sendMessage;
         String send = "";
@@ -80,20 +78,8 @@ public class TravelBot extends TelegramLongPollingBot {
                 }
                 sendMessage = createMessage(send, chatId, messageId);
             } else {
-                CityDTO citiesMeaning = null;
-                try {
-                    citiesMeaning = cityService.getCitiesByNameContaining(message.strip());
-                } catch (ru.mail.senokosov.artem.service.exception.ServiceException e) {
-                    e.printStackTrace();
-                }
-                if (Objects.nonNull(citiesMeaning)) {
-                    String citiesName = citiesMeaning.getCityName();
-                    send = "Возможно вы не правильно ввели название города.\nВыберете подходящий:";
-                    sendMessage = createMessage(send, chatId, messageId, setInline(Collections.singletonList(citiesName)));
-                } else {
-                    send = "У нас в базе нет информации о таком городе.";
-                    sendMessage = createMessage(send, chatId, messageId);
-                }
+                send = "У нас в базе нет информации о таком городе.";
+                sendMessage = createMessage(send, chatId, messageId);
             }
         }
 

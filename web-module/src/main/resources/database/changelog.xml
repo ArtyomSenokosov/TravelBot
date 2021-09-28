@@ -4,7 +4,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-
     <changeSet id="1" author="artem.senokosov@mail.ru">
         <createTable tableName="city">
             <column name="id" type="int" autoIncrement="true">
@@ -45,31 +44,34 @@
             <column name="name" value="Минск"/>
         </insert>
         <insert tableName="city">
+            <column name="name" value="Пинск"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Санкт-Петербург"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Питер"/>
+        </insert>
+        <insert tableName="city">
             <column name="name" value="Барановичи"/>
         </insert>
         <insert tableName="city">
-            <column name="name" value="Гомель"/>
+            <column name="name" value="Брест"/>
         </insert>
         <insert tableName="city">
-            <column name="name" value="Кричев"/>
+            <column name="name" value="Рим"/>
         </insert>
         <insert tableName="city">
-            <column name="name" value="Солигорск"/>
+            <column name="name" value="Милан"/>
         </insert>
         <insert tableName="city">
-            <column name="name" value="Жлобин"/>
+            <column name="name" value="Лондон"/>
         </insert>
         <insert tableName="city">
-            <column name="name" value="Миоры"/>
+            <column name="name" value="Амстердам"/>
         </insert>
         <insert tableName="city">
-            <column name="name" value="Миннеа́полис"/>
-        </insert>
-        <insert tableName="city">
-            <column name="name" value="Минеральные воды"/>
-        </insert>
-        <insert tableName="city">
-            <column name="name" value="Мир"/>
+            <column name="name" value="Париж"/>
         </insert>
     </changeSet>
 
@@ -87,67 +89,64 @@
             <column name="city_id" value="2"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Не забудьте посетить Барановичский музей железной дороги."/>
+            <column name="info" value="Лучший город на планете."/>
             <column name="city_id" value="3"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Обязательно попробуйте Лодочку"/>
+            <column name="info" value="Посмотрите на Иезуитский коллегиум. Раз уже здесь."/>
             <column name="city_id" value="3"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Можешь поройтись по бульвару Победы"/>
+            <column name="info" value="Посетите Дворцовую площадь!"/>
             <column name="city_id" value="4"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Посетите Свято-Николаевскую церковь"/>
+            <column name="info" value="Ну или посмотрите на развод мостов."/>
+            <column name="city_id" value="4"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Ты и сам знаешь, что делать."/>
             <column name="city_id" value="5"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info"
-                    value="Начинать осмотр советуем с самой молодой достопримечательности Солигорска — парка «Четырех стихий»"/>
+            <column name="info" value="В Питере - пить! В Питере - пить! В Питере тире - пить!"/>
+            <column name="city_id" value="5"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Не забудьте посетить Барановичский музей железной дороги."/>
             <column name="city_id" value="6"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info"
-                    value="В Солигорске, как и в Минске стоит самая популярная достопримечательность Парижа"/>
-            <column name="city_id" value="6"/>
-        </insert>
-        <insert tableName="city_info">
-            <column name="info" value="Мемориал детям – жертвам Великой Отечественной войны"/>
-            <column name="city_id" value="7"/>
-        </insert>
-        <insert tableName="city_info">
-            <column name="info" value="Римско-католическая церковь Вознесения Девы Марии (1907)"/>
+            <column name="info" value="Можете побороться в Колизее."/>
             <column name="city_id" value="8"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Скульптура «Журавлиная верность»"/>
+            <column name="info" value="Навестите Папу в Ватикане."/>
             <column name="city_id" value="8"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Институт искусств Миннеаполиса"/>
+            <column name="info" value="Миланский собор стоит твоего внимания!"/>
             <column name="city_id" value="9"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Парк Миннехаха"/>
-            <column name="city_id" value="9"/>
-        </insert>
-        <insert tableName="city_info">
-            <column name="info"
-                    value="Посетите Музей авиационной техники на территории завода № 411 Гражданской Авиации"/>
-            <column name="city_id" value="8"/>
-        </insert>
-        <insert tableName="city_info">
-            <column name="info" value="Римско-католическая церковь Вознесения Девы Марии (1907)"/>
+            <column name="info" value="London is the capital of Great Britain))"/>
             <column name="city_id" value="10"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Посмотрите на Мирский замок (1520-е гг.)"/>
+            <column name="info" value="Сверим часы по Биг Бену."/>
+            <column name="city_id" value="10"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Улица красных фонарей уже ждет тебя."/>
             <column name="city_id" value="11"/>
         </insert>
         <insert tableName="city_info">
-            <column name="info" value="Церковь-усыпальница Святополк-Мирских"/>
-            <column name="city_id" value="11"/>
+            <column name="info" value="Поднимись на Эльфивую башню. Там отличный вид."/>
+            <column name="city_id" value="12"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="В Лувре находится Мона Лиза. Тебе стоит на нее взглянуть)"/>
+            <column name="city_id" value="12"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

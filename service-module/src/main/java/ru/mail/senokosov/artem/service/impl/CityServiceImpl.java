@@ -79,15 +79,4 @@ public class CityServiceImpl implements CityService {
         cityRepository.removeById(id);
         return true;
     }
-
-    @Override
-    @Transactional
-    public CityDTO getCitiesByNameContaining(String name) throws ServiceException {
-        City city = cityRepository.findCityByNameIgnoreCaseContaining(name);
-        if (Objects.nonNull(city)) {
-            return cityConverter.convert(city);
-        } else {
-            throw new ServiceException(String.format("Города %s нет в базе ", name));
-        }
-    }
 }

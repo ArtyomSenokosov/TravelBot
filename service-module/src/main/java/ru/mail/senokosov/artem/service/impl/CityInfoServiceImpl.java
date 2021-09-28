@@ -8,8 +8,6 @@ import ru.mail.senokosov.artem.repository.CityRepository;
 import ru.mail.senokosov.artem.repository.model.City;
 import ru.mail.senokosov.artem.repository.model.CityInfo;
 import ru.mail.senokosov.artem.service.CityInfoService;
-import ru.mail.senokosov.artem.service.converter.CityInfoConverter;
-import ru.mail.senokosov.artem.service.exception.ServiceException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -24,7 +22,6 @@ public class CityInfoServiceImpl implements CityInfoService {
 
     private final CityInfoRepository cityInfoRepository;
     private final CityRepository cityRepository;
-    private final CityInfoConverter cityInfoConverter;
 
     @Override
     @Transactional
@@ -35,7 +32,7 @@ public class CityInfoServiceImpl implements CityInfoService {
 
     @Override
     @Transactional
-    public List<String> getAllCityInfoByCityName(String cityName) throws ServiceException {
+    public List<String> getAllCityInfoByCityName(String cityName) {
         City city = cityRepository.findCityByName(cityName);
         if (Objects.nonNull(city)) {
             Set<CityInfo> cityInfo = city.getCityInfo();
@@ -44,9 +41,7 @@ public class CityInfoServiceImpl implements CityInfoService {
                         .map(CityInfo::getCityInfo)
                         .collect(Collectors.toList());
             }
-            return null;
-        } else {
-            throw new ServiceException(String.format("Города %s нет в базе ", cityName));
         }
+        return null;
     }
 }
