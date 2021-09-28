@@ -8,14 +8,13 @@ import ru.mail.senokosov.artem.repository.CityRepository;
 import ru.mail.senokosov.artem.repository.model.City;
 import ru.mail.senokosov.artem.repository.model.CityInfo;
 import ru.mail.senokosov.artem.service.CityInfoService;
-import ru.mail.senokosov.artem.service.converter.CityConverter;
 import ru.mail.senokosov.artem.service.converter.CityInfoConverter;
 import ru.mail.senokosov.artem.service.exception.ServiceException;
-import ru.mail.senokosov.artem.service.model.CityInfoDTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -26,7 +25,6 @@ public class CityInfoServiceImpl implements CityInfoService {
     private final CityInfoRepository cityInfoRepository;
     private final CityRepository cityRepository;
     private final CityInfoConverter cityInfoConverter;
-    private final CityConverter cityConverter;
 
     @Override
     @Transactional
@@ -37,13 +35,13 @@ public class CityInfoServiceImpl implements CityInfoService {
 
     @Override
     @Transactional
-    public List<CityInfoDTO> getAllCityInfoByCityName(String cityName) throws ServiceException {
-        City city = cityRepository.findCityByNameIgnoreCaseContaining(cityName);
+    public List<String> getAllCityInfoByCityName(String cityName) throws ServiceException {
+        City city = cityRepository.findCityByName(cityName);
         if (Objects.nonNull(city)) {
-            List<CityInfo> cityInfo = city.getCityInfo();
+            Set<CityInfo> cityInfo = city.getCityInfo();
             if (Objects.nonNull(cityInfo)) {
                 return cityInfo.stream()
-                        .map(cityInfoConverter::convert)
+                        .map(CityInfo::getCityInfo)
                         .collect(Collectors.toList());
             }
             return null;

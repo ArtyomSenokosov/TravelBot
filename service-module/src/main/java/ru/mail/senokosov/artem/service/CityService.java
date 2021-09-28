@@ -17,7 +17,5 @@ public interface CityService {
 
     CityDTO updateCity(Long id, CityDTO cityDTO) throws ServiceException;
 
-    CityDTO getCitiesByName(String partName) throws ServiceException;
-
     CityDTO getCitiesByNameContaining(String partName) throws ServiceException;
 }

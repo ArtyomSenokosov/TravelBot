@@ -29,5 +29,4 @@ public class ApplicationConfig {
     public DefaultBotOptions botOptions() {
         return new DefaultBotOptions();
     }
-
 }

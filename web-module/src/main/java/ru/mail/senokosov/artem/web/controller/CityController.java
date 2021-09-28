@@ -3,14 +3,10 @@ package ru.mail.senokosov.artem.web.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import ru.mail.senokosov.artem.service.CityService;
 import ru.mail.senokosov.artem.service.exception.ServiceException;
 import ru.mail.senokosov.artem.service.model.CityDTO;
@@ -22,7 +18,9 @@ import static ru.mail.senokosov.artem.web.constant.PathConstant.CITY_PATH;
 import static ru.mail.senokosov.artem.web.constant.PathConstant.REST_API_CITY_PATH;
 
 @RestController
-@RequestMapping(REST_API_CITY_PATH)
+@RequestMapping(value = REST_API_CITY_PATH,
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Log4j2
 public class CityController {
@@ -52,7 +50,7 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CityDTO> updateCity(@PathVariable("id") Long id,
+    public ResponseEntity<CityDTO> updateCity(@PathVariable Long id,
                                               @RequestBody CityDTO cityDto) {
         CityDTO updatedCityDTO = null;
         try {
@@ -65,7 +63,6 @@ public class CityController {
         return response;
     }
 
-
     @DeleteMapping(value = CITY_PATH + "/{id}")
     public ResponseEntity<Void> deleteCityById(@PathVariable Long id) throws ServiceException {
         boolean deleteById = cityService.deleteCityById(id);
@@ -75,5 +72,4 @@ public class CityController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }

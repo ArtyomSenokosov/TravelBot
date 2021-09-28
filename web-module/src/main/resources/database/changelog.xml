@@ -10,7 +10,7 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="city_name" type="varchar(60)">
+            <column name="name" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -28,82 +28,126 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="artem.senokosov@mail.ru">
         <addForeignKeyConstraint baseTableName="city_info" baseColumnNames="city_id"
                                  constraintName="fk_city_info"
                                  referencedTableName="city"
                                  referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="3" author="artem.senokosov@mail.ru">
-        <addForeignKeyConstraint baseTableName="city" baseColumnNames="city_id"
-                                 constraintName="fk_city_info"
-                                 referencedTableName="city_info"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
     <changeSet id="4" author="artem.senokosov@mail.ru">
         <insert tableName="city">
-            <column name="city_name" value="Москва"/>
+            <column name="name" value="Москва"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Минск"/>
+            <column name="name" value="Минск"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Барановичи"/>
+            <column name="name" value="Барановичи"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Гомель"/>
+            <column name="name" value="Гомель"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Солигорск"/>
+            <column name="name" value="Кричев"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Жлобин"/>
+            <column name="name" value="Солигорск"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Миоры"/>
+            <column name="name" value="Жлобин"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Миннеа́полис"/>
+            <column name="name" value="Миоры"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Минеральные воды"/>
+            <column name="name" value="Миннеа́полис"/>
         </insert>
         <insert tableName="city">
-            <column name="city_name" value="Мир"/>
+            <column name="name" value="Минеральные воды"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Мир"/>
         </insert>
     </changeSet>
 
     <changeSet id="5" author="artem.senokosov@mail.ru">
-        <insert tableName="city">
-            <column name="city_name" value="Москва"/>
+        <insert tableName="city_info">
+            <column name="info" value="Не забудьте посетить Красную Площадь."/>
+            <column name="city_id" value="1"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Минск"/>
+        <insert tableName="city_info">
+            <column name="info" value="Не ходите в ЦУМ. Расстроитесь))"/>
+            <column name="city_id" value="1"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Барановичи"/>
+        <insert tableName="city_info">
+            <column name="info" value="Посмотрите на Национальную библиотеку"/>
+            <column name="city_id" value="2"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Гомель"/>
+        <insert tableName="city_info">
+            <column name="info" value="Не забудьте посетить Барановичский музей железной дороги."/>
+            <column name="city_id" value="3"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Солигорск"/>
+        <insert tableName="city_info">
+            <column name="info" value="Обязательно попробуйте Лодочку"/>
+            <column name="city_id" value="3"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Жлобин"/>
+        <insert tableName="city_info">
+            <column name="info" value="Можешь поройтись по бульвару Победы"/>
+            <column name="city_id" value="4"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Миоры"/>
+        <insert tableName="city_info">
+            <column name="info" value="Посетите Свято-Николаевскую церковь"/>
+            <column name="city_id" value="5"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Миннеа́полис"/>
+        <insert tableName="city_info">
+            <column name="info"
+                    value="Начинать осмотр советуем с самой молодой достопримечательности Солигорска — парка «Четырех стихий»"/>
+            <column name="city_id" value="6"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Минеральные воды"/>
+        <insert tableName="city_info">
+            <column name="info"
+                    value="В Солигорске, как и в Минске стоит самая популярная достопримечательность Парижа"/>
+            <column name="city_id" value="6"/>
         </insert>
-        <insert tableName="city">
-            <column name="city_name" value="Мир"/>
+        <insert tableName="city_info">
+            <column name="info" value="Мемориал детям – жертвам Великой Отечественной войны"/>
+            <column name="city_id" value="7"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Римско-католическая церковь Вознесения Девы Марии (1907)"/>
+            <column name="city_id" value="8"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Скульптура «Журавлиная верность»"/>
+            <column name="city_id" value="8"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Институт искусств Миннеаполиса"/>
+            <column name="city_id" value="9"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Парк Миннехаха"/>
+            <column name="city_id" value="9"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info"
+                    value="Посетите Музей авиационной техники на территории завода № 411 Гражданской Авиации"/>
+            <column name="city_id" value="8"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Римско-католическая церковь Вознесения Девы Марии (1907)"/>
+            <column name="city_id" value="10"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Посмотрите на Мирский замок (1520-е гг.)"/>
+            <column name="city_id" value="11"/>
+        </insert>
+        <insert tableName="city_info">
+            <column name="info" value="Церковь-усыпальница Святополк-Мирских"/>
+            <column name="city_id" value="11"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

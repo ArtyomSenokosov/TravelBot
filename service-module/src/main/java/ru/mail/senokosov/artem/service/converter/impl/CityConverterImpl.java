@@ -11,6 +11,7 @@ import ru.mail.senokosov.artem.service.model.CityDTO;
 import ru.mail.senokosov.artem.service.model.CityInfoDTO;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +28,7 @@ public class CityConverterImpl implements CityConverter {
         cityDTO.setId(id);
         String cityName = city.getCityName();
         cityDTO.setCityName(cityName);
-        List<CityInfo> cityInfo = city.getCityInfo();
+        Set<CityInfo> cityInfo = city.getCityInfo();
         if (!cityInfo.isEmpty()) {
             List<CityInfoDTO> cityInfoDTOs = cityInfo.stream()
                     .map(cityInfoConverter::convert)

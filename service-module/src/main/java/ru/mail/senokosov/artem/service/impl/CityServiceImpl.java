@@ -49,7 +49,7 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional
     public CityDTO persist(CityDTO cityDTO) throws ServiceException {
-        City cityByName = cityRepository.findCityByNameIgnoreCaseContaining(cityDTO.getCityName());
+        City cityByName = cityRepository.findCityByName(cityDTO.getCityName());
         if (Objects.isNull(cityByName)) {
             City city = cityConverter.convert(cityDTO);
             cityRepository.persist(city);
@@ -75,17 +75,6 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Transactional
-    public CityDTO getCitiesByName(String partName) throws ServiceException {
-        City city = cityRepository.findCityByName(partName);
-        if (Objects.nonNull(city)) {
-            return cityConverter.convert(city);
-        } else {
-            throw new ServiceException(String.format("Города %s нет в базе ", partName));
-        }
-    }
-
-    @Override
-    @Transactional
     public boolean deleteCityById(Long id) {
         cityRepository.removeById(id);
         return true;
@@ -93,12 +82,12 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Transactional
-    public CityDTO getCitiesByNameContaining(String partName) throws ServiceException {
-        City city = cityRepository.findCityByNameIgnoreCaseContaining(partName);
+    public CityDTO getCitiesByNameContaining(String name) throws ServiceException {
+        City city = cityRepository.findCityByNameIgnoreCaseContaining(name);
         if (Objects.nonNull(city)) {
             return cityConverter.convert(city);
         } else {
-            throw new ServiceException(String.format("Города %s нет в базе ", partName));
+            throw new ServiceException(String.format("Города %s нет в базе ", name));
         }
     }
 }

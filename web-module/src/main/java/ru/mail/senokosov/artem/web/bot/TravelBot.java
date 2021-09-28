@@ -1,10 +1,10 @@
 package ru.mail.senokosov.artem.web.bot;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -14,16 +14,16 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.mail.senokosov.artem.service.CityInfoService;
 import ru.mail.senokosov.artem.service.CityService;
-import ru.mail.senokosov.artem.service.exception.ServiceException;
 import ru.mail.senokosov.artem.service.model.CityDTO;
-import ru.mail.senokosov.artem.service.model.CityInfoDTO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Component
-@Slf4j
+@RequiredArgsConstructor
+@Log4j2
 public class TravelBot extends TelegramLongPollingBot {
 
     private final CityService cityService;
@@ -33,14 +33,7 @@ public class TravelBot extends TelegramLongPollingBot {
     @Value("${telegram.token}")
     private String botToken;
 
-
-    @Autowired
-    public TravelBot(DefaultBotOptions options, CityService cityService, CityInfoService cityInfoService) {
-        super(options);
-        this.cityService = cityService;
-        this.cityInfoService = cityInfoService;
-    }
-
+    @SneakyThrows
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
@@ -67,7 +60,8 @@ public class TravelBot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendMsg(Long chatId, String message, Integer messageId) {
+    @SneakyThrows
+    private void sendMsg(Long chatId, String message, Integer messageId){
 
         SendMessage sendMessage;
         String send = "";
@@ -76,31 +70,26 @@ public class TravelBot extends TelegramLongPollingBot {
             send = "Добро пожаловать! \nТуристический помощник подскажет Вам лучшие места для посещения. \nВведите название города:";
             sendMessage = createMessage(send, chatId, messageId);
         } else {
-            List<CityInfoDTO> allCityInfo = null;
-            try {
-                allCityInfo = cityInfoService.getAllCityInfoByCityName(message.strip());
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
+            List<String> allCityInfo = cityInfoService.getAllCityInfoByCityName(message.strip());
 
             if (allCityInfo != null) {
                 if (!allCityInfo.isEmpty()) {
-                    send = String.join(".\n", (CharSequence) allCityInfo);
+                    send = String.join(".\n", allCityInfo);
                 } else {
                     send = "В этом городе смотреть нечего. Езжай отсюда.";
                 }
                 sendMessage = createMessage(send, chatId, messageId);
             } else {
-                List<CityDTO> citiesMeaning = null;
+                CityDTO citiesMeaning = null;
                 try {
-                    citiesMeaning = (List<CityDTO>) cityService.getCitiesByNameContaining(message.strip());
+                    citiesMeaning = cityService.getCitiesByNameContaining(message.strip());
                 } catch (ru.mail.senokosov.artem.service.exception.ServiceException e) {
                     e.printStackTrace();
                 }
-                if (!citiesMeaning.isEmpty()) {
-                    List<String> citiesName = citiesMeaning.stream().map(s -> s.getCityName()).collect(Collectors.toList());
+                if (Objects.nonNull(citiesMeaning)) {
+                    String citiesName = citiesMeaning.getCityName();
                     send = "Возможно вы не правильно ввели название города.\nВыберете подходящий:";
-                    sendMessage = createMessage(send, chatId, messageId, setInline(citiesName));
+                    sendMessage = createMessage(send, chatId, messageId, setInline(Collections.singletonList(citiesName)));
                 } else {
                     send = "У нас в базе нет информации о таком городе.";
                     sendMessage = createMessage(send, chatId, messageId);

@@ -14,9 +14,9 @@ public class CityRepositoryImpl extends GenericRepositoryImpl<Long, City> implem
 
     @Override
     public City findCityByNameIgnoreCaseContaining(String name) {
-        String stringQuery = "SELECT c FROM City as c WHERE lower(c.city_name)=:lower(city_name)";
+        String stringQuery = "SELECT c FROM City as c WHERE lower(c.cityName)=:cityName";
         Query query = entityManager.createQuery(stringQuery);
-        query.setParameter("city_name", name);
+        query.setParameter("cityName", name.toLowerCase());
         try {
             query.getSingleResult();
         } catch (NoResultException e) {
@@ -28,9 +28,9 @@ public class CityRepositoryImpl extends GenericRepositoryImpl<Long, City> implem
 
     @Override
     public City findCityByName(String name) {
-        String stringQuery = "SELECT c FROM City as c WHERE c.city_name=:city_name";
+        String stringQuery = "SELECT c FROM City as c WHERE c.cityName=:cityName";
         Query query = entityManager.createQuery(stringQuery);
-        query.setParameter("city_name", name);
+        query.setParameter("cityName", name);
         try {
             query.getSingleResult();
         } catch (NoResultException e) {
